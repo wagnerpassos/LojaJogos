@@ -5,6 +5,8 @@
  */
 package br.wagnerpassos.modelo.bean;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +19,7 @@ import javax.persistence.OneToOne;
  * @author wagne
  */
 @Entity
-public class Jogador {
+public class Jogador implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -28,6 +30,9 @@ public class Jogador {
     @JoinColumn(name = "login_id")
     private Login login;  
 
+    public Jogador() {
+    }
+    
     public Integer getId() {
         return id;
     }
@@ -67,5 +72,29 @@ public class Jogador {
     public void setLogin(Login login) {
         this.login = login;
     }
-    
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Jogador other = (Jogador) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -17,7 +17,7 @@ import javax.persistence.Query;
  */
 public class LoginDAO {
     public void save(Login login){
-        EntityManager em = ConnectionFactory.getConnection();
+        EntityManager em = ConnectionFactory.getEntityManager();
         
         em.getTransaction().begin();
         if(login.getId() != null)
@@ -29,7 +29,7 @@ public class LoginDAO {
     }
     
     public List<Login> read(){
-        EntityManager em = ConnectionFactory.getConnection();
+        EntityManager em = ConnectionFactory.getEntityManager();
         
         em.getTransaction().begin();
         Query consulta = em.createQuery("SELECT login FROM Login login");
@@ -44,7 +44,7 @@ public class LoginDAO {
     }
     
     public void delete(Integer id){
-        EntityManager em = ConnectionFactory.getConnection();
+        EntityManager em = ConnectionFactory.getEntityManager();
         
         em.getTransaction().begin();
         Login login = em.find(Login.class, id);
@@ -54,7 +54,7 @@ public class LoginDAO {
     }
     
     public Login findById(Integer id){
-        EntityManager em = ConnectionFactory.getConnection();
+        EntityManager em = ConnectionFactory.getEntityManager();
         
         em.getTransaction().begin();
         Login login = em.find(Login.class, id);

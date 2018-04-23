@@ -14,16 +14,17 @@ import javax.persistence.Persistence;
  * @author wagne
  */
 public class ConnectionFactory {
-    private static EntityManagerFactory emf;
-    private static EntityManager em;
+    private static EntityManagerFactory emf = null;
+    private static EntityManager em = null;
     
     private ConnectionFactory(){
     }
     
-    public static EntityManager getConnection(){
+    public static EntityManager getEntityManager(){
         if(emf == null)
             emf = Persistence.createEntityManagerFactory("lojaPU");
-        em = emf.createEntityManager();
+        if(em == null)
+            em = emf.createEntityManager();
         return em;
     }
     

@@ -7,22 +7,30 @@ package br.wagnerpassos.modelo.bean;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author wagne
  */
 @Entity
+@Table(name = "login")
 public class Login implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "usuario", nullable = false, length = 20, unique = true)
     private String usuario;
+    @Column(name = "senha", nullable = false, length = 20)
     private String senha;
+
+    public Login() {
+    }
 
     public Integer getId() {
         return id;
@@ -67,9 +75,6 @@ public class Login implements Serializable{
             return false;
         }
         final Login other = (Login) obj;
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
 }
