@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -24,8 +26,12 @@ public class Login implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Length(max = 20, message = "O usuário deve ser de no máximo {max} caracteres")
+    @NotBlank(message = "O campo usuário não pode ficar em branco")
     @Column(name = "usuario", nullable = false, length = 20, unique = true)
     private String usuario;
+    @Length(max = 20, min = 3, message = "A senha deve ser de no máximo {max} e mínimo {min} caracteres")
+    @NotBlank(message = "O campo senha não pode ficar em branco")
     @Column(name = "senha", nullable = false, length = 20)
     private String senha;
 

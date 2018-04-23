@@ -17,15 +17,11 @@ import java.util.GregorianCalendar;
 public class Principal {
     public static void main(String[] args) {
         Login login = new Login();
-        login.setId(6);
-        login.setUsuario("ccccc");
-        login.setSenha("cccccc");
-        
-        Calendar data = new GregorianCalendar();
+        login.setUsuario("Wagner Passos");
+        login.setSenha("");
         
         LoginDAO loginDAO = new LoginDAO();
         loginDAO.save(login);
-        System.out.println("HOJE: "+data.getTime());
         /*for(Login l : loginDAO.read()){
         System.out.println("=====================");
             System.out.println("Usuario: "+l.getUsuario());

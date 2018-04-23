@@ -7,6 +7,7 @@ package br.wagnerpassos.modelo.dao;
 
 import br.wagnerpassos.connection.ConnectionFactory;
 import br.wagnerpassos.modelo.bean.Login;
+import br.wagnerpassos.modelo.validador.LoginValidador;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,13 +19,16 @@ import javax.persistence.Query;
 public class LoginDAO {
     public void save(Login login){
         EntityManager em = ConnectionFactory.getEntityManager();
+        LoginValidador validador = new LoginValidador();
         
         em.getTransaction().begin();
-        if(login.getId() != null)
-            em.merge(login);
-        else
-            em.persist(login);
-        em.getTransaction().commit();
+        if(validador.validarLogin(login)){
+            if(login.getId() != null)
+                em.merge(login);
+            else
+                em.persist(login);
+            em.getTransaction().commit();
+        }
         ConnectionFactory.closeConnection();
     }
     
