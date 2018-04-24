@@ -6,6 +6,7 @@
 package br.wagnerpassos.modelo.dao;
 
 import br.wagnerpassos.fabrica.ConnectionFactory;
+import br.wagnerpassos.modelo.bean.Jogador;
 import br.wagnerpassos.modelo.bean.Login;
 import br.wagnerpassos.modelo.validador.Validador;
 import java.util.List;
@@ -16,17 +17,17 @@ import javax.persistence.Query;
  *
  * @author wagne
  */
-public class LoginDAO {
-    public void save(Login login){
+public class JogadorDAO {
+        public void save(Jogador jogador){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         Validador validador = new Validador();
         
         em.getTransaction().begin();
-        if(validador.validarLogin(login)){
-            if(login.getId() != null)
-                em.merge(login);
+        if(validador.validarJogador(jogador)){
+            if(jogador.getId() != null)
+                em.merge(jogador);
             else
-                em.persist(login);
+                em.persist(jogador);
             em.getTransaction().commit();
         }
         ConnectionFactory.getInstance().closeEntityManager();
@@ -47,19 +48,19 @@ public class LoginDAO {
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         
         em.getTransaction().begin();
-        Login login = em.find(Login.class, id);
-        em.remove(login);
+        Jogador jogador = em.find(Jogador.class, id);
+        em.remove(jogador);
         em.getTransaction().commit();
         ConnectionFactory.getInstance().closeEntityManager();
     }
     
-    public Login findById(Integer id){
+    public Jogador findById(Integer id){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         
         em.getTransaction().begin();
-        Login login = em.find(Login.class, id);
+        Jogador jogador = em.find(Jogador.class, id);
         ConnectionFactory.getInstance().closeEntityManager();
         
-        return login;
+        return jogador;
     }
 }

@@ -7,27 +7,33 @@ package br.wagnerpassos.modelo.bean;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author wagne
  */
 @Entity
+@Table(name = "jogador")
 public class Jogador implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "nome", nullable = false, length = 50)
     private String nome;
+    @Column(name = "apelido", length = 50)
     private String apelido;
+    @Column(name = "sexo", length = 10)
     private String sexo;
     @OneToOne
-    @JoinColumn(name = "login_id")
+    @JoinColumn(name = "login_id", referencedColumnName = "id")
     private Login login;  
 
     public Jogador() {
