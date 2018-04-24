@@ -12,33 +12,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
-import org.hibernate.annotations.ForeignKey;
 
 /**
  *
  * @author wagne
  */
 @Entity
-@Table(name = "jogador")
-public class Jogador implements Serializable{
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "carta")
+public class Carta implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "nome", nullable = false, length = 50)
+    @Column(name = "nome", nullable = false, length = 30)
     private String nome;
-    @Column(name = "apelido", length = 50)
-    private String apelido;
-    @Column(name = "sexo", length = 10)
-    private String sexo;
-    @OneToOne
-    @JoinColumn(name = "login_id", referencedColumnName = "id")
-    @ForeignKey(name = "fk_login")
-    private Login login;  
+    @Column(name = "nome", length = 10)
+    private String colecao;
+    @Column(name = "nome", nullable = false, length = 30)
+    private String raridade;
 
-    public Jogador() {
+    public Carta() {
     }
     
     public Integer getId() {
@@ -57,34 +53,26 @@ public class Jogador implements Serializable{
         this.nome = nome;
     }
 
-    public String getApelido() {
-        return apelido;
+    public String getColecao() {
+        return colecao;
     }
 
-    public void setApelido(String apelido) {
-        this.apelido = apelido;
+    public void setColecao(String colecao) {
+        this.colecao = colecao;
     }
 
-    public String getSexo() {
-        return sexo;
+    public String getRaridade() {
+        return raridade;
     }
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }  
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
+    public void setRaridade(String raridade) {
+        this.raridade = raridade;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.id);
+        int hash = 3;
+        hash = 13 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -99,10 +87,12 @@ public class Jogador implements Serializable{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Jogador other = (Jogador) obj;
+        final Carta other = (Carta) obj;
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
     }
+    
+    
 }
