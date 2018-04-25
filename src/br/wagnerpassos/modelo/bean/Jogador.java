@@ -6,16 +6,24 @@
 package br.wagnerpassos.modelo.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.ForeignKey;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -27,17 +35,26 @@ public class Jogador implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Length(max = 50, message = "O nome do jogador deve ser de no máximo {max} caracteres")
+    @NotBlank(message = "O campo nome não pode ficar em branco")
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
     @Column(name = "apelido", length = 50)
     private String apelido;
+    @NotBlank(message = "O campo sexo não pode ficar em branco")
     @Column(name = "sexo", length = 10)
     private String sexo;
     @OneToOne
     @JoinColumn(name = "login_id", referencedColumnName = "id")
     @ForeignKey(name = "fk_login")
     private Login login;  
-
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "jogadores_torneio", 
+               joinColumns = @JoinColumn(name = "jogador", referencedColumnName = "id", nullable = false),
+               inverseJoinColumns = @JoinColumn(name = "torneio", referencedColumnName = "id", nullable = false),
+               uniqueConstraints = {@UniqueConstraint(columnNames = {"jogador", "torneio"})})
+    List<Torneio> torneioJogador = new ArrayList<Torneio>();
+    
     public Jogador() {
     }
     
@@ -81,6 +98,20 @@ public class Jogador implements Serializable{
         this.login = login;
     }
 
+    public List<Torneio> getTorneioJogador() {
+        return torneioJogador;
+    }
+
+    public void setTorneioJogador(List<Torneio> torneioJogador) {
+        this.torneioJogador = torneioJogador;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;

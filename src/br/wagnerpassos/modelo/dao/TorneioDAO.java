@@ -7,80 +7,60 @@ package br.wagnerpassos.modelo.dao;
 
 import br.wagnerpassos.fabrica.ConnectionFactory;
 import br.wagnerpassos.modelo.bean.Login;
+import br.wagnerpassos.modelo.bean.Torneio;
 import br.wagnerpassos.modelo.validador.Validador;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
  * @author wagne
  */
-public class LoginDAO {
-    public void save(Login login){
+public class TorneioDAO {
+        public void save(Torneio torneio){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         Validador validador = new Validador();
         
         em.getTransaction().begin();
-        if(validador.validarLogin(login).size() <= 0){
-            if(login.getId() != null)
-                em.merge(login);
+        if(validador.validarTorneio(torneio).size() <= 0){
+            if(torneio.getId() != null)
+                em.merge(torneio);
             else
-                em.persist(login);
+                em.persist(torneio);
             em.getTransaction().commit();
         }
         ConnectionFactory.getInstance().closeEntityManager();
     }
     
-    public List<Login> read(){
+    public List<Torneio> read(){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         
         em.getTransaction().begin();
-        Query consulta = em.createQuery("SELECT login FROM Login login");
-        List<Login> logins = consulta.getResultList();
+        Query consulta = em.createQuery("SELECT torneio FROM Torneio torneio");
+        List<Torneio> torneios = consulta.getResultList();
         em.getTransaction().commit();
         ConnectionFactory.getInstance().closeEntityManager();
-        return logins;
+        return torneios;
     }
     
     public void delete(Integer id){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         
         em.getTransaction().begin();
-        Login login = em.find(Login.class, id);
-        em.remove(login);
+        Torneio torneio = em.find(Torneio.class, id);
+        em.remove(torneio);
         em.getTransaction().commit();
         ConnectionFactory.getInstance().closeEntityManager();
     }
     
-    public Login findById(Integer id){
+    public Torneio findById(Integer id){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         
         em.getTransaction().begin();
-        Login login = em.find(Login.class, id);
+        Torneio torneio = em.find(Torneio.class, id);
         ConnectionFactory.getInstance().closeEntityManager();
         
-        return login;
-    }
-    
-    public Login realizarLogin(String usuario, String senha){
-        Login login =  null;
-        try {
-                EntityManager em = ConnectionFactory.getInstance().getEntityManager();
-                EntityTransaction et = em.getTransaction();
-                et.begin();
-
-                login = (Login) em.createQuery("SELECT l FROM Login l "
-                                                  + " WHERE l.usuario = '"+ usuario +"' AND l.senha = '"+ senha +"'").getSingleResult();
-                et.commit();
-                ConnectionFactory.getInstance().closeEntityManager();
-        } catch (Exception e) {
-        }
-
-        return login;
+        return torneio;
     }
 }

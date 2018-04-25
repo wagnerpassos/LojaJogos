@@ -40,9 +40,11 @@ public class ConnectionFactory {
     }
     
     public void closeAll(){
-        if(em.isOpen())
-            em.close();
-        if(emf.isOpen())
-            emf.close();
+        if(em != null)
+            if(em.isOpen())
+                em.close();
+        if(emf != null)
+            if(emf.isOpen())
+                emf.close();
     }
 }

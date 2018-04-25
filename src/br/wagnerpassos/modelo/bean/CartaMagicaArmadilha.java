@@ -15,14 +15,14 @@ import javax.persistence.Table;
  * @author wagne
  */
 @Entity
-@Table(name = "carta_armadilha")
-public class CartaArmadilha extends Carta implements Serializable{
-    @Column(name = "tipo")
+@Table(name = "carta_magica_armadilha")
+public class CartaMagicaArmadilha extends Carta implements Serializable{
+    @Column(name = "tipo", length = 20)
     private String tipo;
 
-    public CartaArmadilha() {
+    public CartaMagicaArmadilha() {
     }
-
+    
     public String getTipo() {
         return tipo;
     }

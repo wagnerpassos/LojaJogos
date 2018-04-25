@@ -29,9 +29,9 @@ public class Carta implements Serializable{
     private Integer id;
     @Column(name = "nome", nullable = false, length = 30)
     private String nome;
-    @Column(name = "nome", length = 10)
+    @Column(name = "colecao", length = 10)
     private String colecao;
-    @Column(name = "nome", nullable = false, length = 30)
+    @Column(name = "raridade", length = 30)
     private String raridade;
 
     public Carta() {

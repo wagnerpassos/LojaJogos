@@ -23,7 +23,7 @@ public class JogadorDAO {
         Validador validador = new Validador();
         
         em.getTransaction().begin();
-        if(validador.validarJogador(jogador)){
+        if(validador.validarJogador(jogador).size() <= 0){
             if(jogador.getId() != null)
                 em.merge(jogador);
             else
@@ -33,15 +33,15 @@ public class JogadorDAO {
         ConnectionFactory.getInstance().closeEntityManager();
     }
     
-    public List<Login> read(){
+    public List<Jogador> read(){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         
         em.getTransaction().begin();
-        Query consulta = em.createQuery("SELECT login FROM Login login");
-        List<Login> logins = consulta.getResultList();
+        Query consulta = em.createQuery("SELECT jogador FROM Jogador jogador");
+        List<Jogador> jogadores = consulta.getResultList();
         em.getTransaction().commit();
         ConnectionFactory.getInstance().closeEntityManager();
-        return logins;
+        return jogadores;
     }
     
     public void delete(Integer id){
