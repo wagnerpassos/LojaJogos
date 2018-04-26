@@ -31,7 +31,7 @@ public class ConnectionFactory {
         if(emf == null)
             emf = Persistence.createEntityManagerFactory("lojaPU");
         //if(em == null)
-            em = emf.createEntityManager();
+        em = emf.createEntityManager();
         return em;
     }
     
@@ -44,7 +44,9 @@ public class ConnectionFactory {
             if(em.isOpen())
                 em.close();
         if(emf != null)
-            if(emf.isOpen())
+            if(emf.isOpen()){
                 emf.close();
+                emf = null;
+            }
     }
 }

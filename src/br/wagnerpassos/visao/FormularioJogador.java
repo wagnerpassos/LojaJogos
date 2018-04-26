@@ -1,4 +1,4 @@
-package br.wagnerpassos.view;
+package br.wagnerpassos.visao;
 
 import br.wagnerpassos.modelo.bean.Jogador;
 import br.wagnerpassos.modelo.dao.JogadorDAO;

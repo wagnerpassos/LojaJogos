@@ -30,7 +30,7 @@ public class CartaMonstroDAO {
                 em.persist(monstro);
             em.getTransaction().commit();
         }
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public List<CartaMonstro> read(){
@@ -40,7 +40,7 @@ public class CartaMonstroDAO {
         Query consulta = em.createQuery("SELECT cartaMonstro FROM CartaMonstro cartaMonstro");
         List<CartaMonstro> monstros = consulta.getResultList();
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         return monstros;
     }
     
@@ -51,7 +51,7 @@ public class CartaMonstroDAO {
         CartaMonstro cartaMonstro = em.find(CartaMonstro.class, id);
         em.remove(cartaMonstro);
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public CartaMonstro findById(Integer id){
@@ -59,7 +59,7 @@ public class CartaMonstroDAO {
         
         em.getTransaction().begin();
         CartaMonstro monstro = em.find(CartaMonstro.class, id);
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         
         return monstro;
     }

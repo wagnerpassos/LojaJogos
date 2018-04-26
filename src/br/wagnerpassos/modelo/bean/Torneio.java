@@ -25,6 +25,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  *
@@ -36,18 +38,24 @@ public class Torneio implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Length(max = 30, message = "O nome do Torneio deve ser de no máximo {max} caracteres")
+    @NotBlank(message = "O nome do Torneio não pode ficar em branco")
     @Column(name = "nome", length = 30, nullable = false)
     private String nome;
-    @Column(name = "nivel", length = 15, nullable = false)
+    @Length(max = 25, message = "O nível deve ser de no máximo {max} caracteres")
+    @NotBlank(message = "O campo nível não pode ficar em branco")
+    @Column(name = "nivel", length = 25, nullable = false)
     private String nivel;
-    @Column(name = "data_torneio", length = 10)
+    @Column(name = "data_torneio")
     @Temporal(TemporalType.DATE)
     private Calendar dataTorneio;
     @Column(name = "horario")
     @Temporal(TemporalType.TIME)
     private Date horario;
-    @Column(name = "jogo")
+    @Column(name = "jogo", length = 30)
+    @NotBlank(message = "O campo jogo não pode ficar em branco")
     private String jogo;
+    @Length(max = 300, message = "A descrição deve ser de no máximo {max} caracteres")
     @Column(name = "descricao", length = 300)
     private String descricao;
     @Column(name = "valor", columnDefinition = "decimal(12,2)")
@@ -57,7 +65,7 @@ public class Torneio implements Serializable{
                 joinColumns = @JoinColumn(name = "torneio", referencedColumnName = "id", nullable = false),
                 inverseJoinColumns = @JoinColumn(name = "jogador", referencedColumnName = "id", nullable = false),
                 uniqueConstraints = {@UniqueConstraint(columnNames = {"jogador", "torneio"})})
-    List<Jogador> jogadoresTorneio = new ArrayList<Jogador>();
+    List<Jogador> jogadoresTorneio = new ArrayList<>();
 
     public Torneio() {
     }

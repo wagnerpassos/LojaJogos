@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.wagnerpassos.view;
+package br.wagnerpassos.visao;
 
 import br.wagnerpassos.modelo.dao.LoginDAO;
 import br.wagnerpassos.swing.util.ImpressoraSwing;

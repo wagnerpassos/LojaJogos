@@ -30,7 +30,7 @@ public class JogadorDAO {
                 em.persist(jogador);
             em.getTransaction().commit();
         }
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public List<Jogador> read(){
@@ -40,7 +40,7 @@ public class JogadorDAO {
         Query consulta = em.createQuery("SELECT jogador FROM Jogador jogador");
         List<Jogador> jogadores = consulta.getResultList();
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         return jogadores;
     }
     
@@ -51,7 +51,7 @@ public class JogadorDAO {
         Jogador jogador = em.find(Jogador.class, id);
         em.remove(jogador);
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public Jogador findById(Integer id){
@@ -59,7 +59,7 @@ public class JogadorDAO {
         
         em.getTransaction().begin();
         Jogador jogador = em.find(Jogador.class, id);
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         
         return jogador;
     }

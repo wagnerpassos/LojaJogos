@@ -12,9 +12,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
@@ -33,7 +30,7 @@ public class LoginDAO {
                 em.persist(login);
             em.getTransaction().commit();
         }
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public List<Login> read(){
@@ -43,7 +40,7 @@ public class LoginDAO {
         Query consulta = em.createQuery("SELECT login FROM Login login");
         List<Login> logins = consulta.getResultList();
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         return logins;
     }
     
@@ -62,7 +59,7 @@ public class LoginDAO {
         
         em.getTransaction().begin();
         Login login = em.find(Login.class, id);
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         
         return login;
     }
@@ -77,7 +74,7 @@ public class LoginDAO {
                 login = (Login) em.createQuery("SELECT l FROM Login l "
                                                   + " WHERE l.usuario = '"+ usuario +"' AND l.senha = '"+ senha +"'").getSingleResult();
                 et.commit();
-                ConnectionFactory.getInstance().closeEntityManager();
+                ConnectionFactory.getInstance().closeAll();
         } catch (Exception e) {
         }
 

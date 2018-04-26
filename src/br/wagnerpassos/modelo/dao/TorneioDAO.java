@@ -6,9 +6,11 @@
 package br.wagnerpassos.modelo.dao;
 
 import br.wagnerpassos.fabrica.ConnectionFactory;
+import br.wagnerpassos.modelo.bean.Jogador;
 import br.wagnerpassos.modelo.bean.Login;
 import br.wagnerpassos.modelo.bean.Torneio;
 import br.wagnerpassos.modelo.validador.Validador;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,7 +20,7 @@ import javax.persistence.Query;
  * @author wagne
  */
 public class TorneioDAO {
-        public void save(Torneio torneio){
+    public void save(Torneio torneio){
         EntityManager em = ConnectionFactory.getInstance().getEntityManager();
         Validador validador = new Validador();
         
@@ -30,7 +32,20 @@ public class TorneioDAO {
                 em.persist(torneio);
             em.getTransaction().commit();
         }
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
+    }
+        
+    public void save(Torneio torneio, Jogador jogador){
+        EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+        Torneio t = em.find(Torneio.class, torneio.getId());
+        Jogador j = em.find(Jogador.class, jogador.getId());
+        
+        t.getJogadoresTorneio().add(j);
+        
+        em.getTransaction().begin();
+        em.merge(torneio);
+        em.getTransaction().commit();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public List<Torneio> read(){
@@ -40,7 +55,7 @@ public class TorneioDAO {
         Query consulta = em.createQuery("SELECT torneio FROM Torneio torneio");
         List<Torneio> torneios = consulta.getResultList();
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         return torneios;
     }
     
@@ -51,7 +66,7 @@ public class TorneioDAO {
         Torneio torneio = em.find(Torneio.class, id);
         em.remove(torneio);
         em.getTransaction().commit();
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
     }
     
     public Torneio findById(Integer id){
@@ -59,8 +74,20 @@ public class TorneioDAO {
         
         em.getTransaction().begin();
         Torneio torneio = em.find(Torneio.class, id);
-        ConnectionFactory.getInstance().closeEntityManager();
+        ConnectionFactory.getInstance().closeAll();
         
         return torneio;
+    }
+    
+    public List<Jogador> findListaJogadores(Torneio torneio){
+        EntityManager em = ConnectionFactory.getInstance().getEntityManager();
+        List<Jogador> jogadores = new ArrayList();
+        
+        em.getTransaction().begin();
+        Torneio t = em.find(Torneio.class, torneio.getId());
+        jogadores.addAll(t.getJogadoresTorneio());
+        ConnectionFactory.getInstance().closeAll();
+        
+        return jogadores;
     }
 }

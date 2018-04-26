@@ -39,6 +39,7 @@ public class Jogador implements Serializable{
     @NotBlank(message = "O campo nome não pode ficar em branco")
     @Column(name = "nome", nullable = false, length = 50)
     private String nome;
+    @Length(max = 50, message = "O apelido deve ser de no máximo {max} caracteres")
     @Column(name = "apelido", length = 50)
     private String apelido;
     @NotBlank(message = "O campo sexo não pode ficar em branco")
@@ -53,7 +54,7 @@ public class Jogador implements Serializable{
                joinColumns = @JoinColumn(name = "jogador", referencedColumnName = "id", nullable = false),
                inverseJoinColumns = @JoinColumn(name = "torneio", referencedColumnName = "id", nullable = false),
                uniqueConstraints = {@UniqueConstraint(columnNames = {"jogador", "torneio"})})
-    List<Torneio> torneioJogador = new ArrayList<Torneio>();
+    List<Torneio> torneioJogador = new ArrayList<>();
     
     public Jogador() {
     }

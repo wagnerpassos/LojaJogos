@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.wagnerpassos.view;
+package br.wagnerpassos.visao;
 
 import br.wagnerpassos.fabrica.ConnectionFactory;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
@@ -53,15 +54,21 @@ public class FormularioPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema - NOMEDALOJA");
-        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Torneio"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Painel de controle de Torneios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
 
+        botaoTorneio.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         botaoTorneio.setText("Iniciar novo Torneio");
         botaoTorneio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,7 +90,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(botaoTorneio, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout painelGeralLayout = new javax.swing.GroupLayout(painelGeral);
@@ -99,7 +106,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
             painelGeralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelGeralLayout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 314, Short.MAX_VALUE))
+                .addGap(0, 397, Short.MAX_VALUE))
         );
 
         botaoPrincipal.setText("Principal");
@@ -110,6 +117,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         botaoCadastro.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         menuJogador.setBackground(new java.awt.Color(255, 255, 255));
+        menuJogador.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuJogador.setText("Jogador");
         menuJogador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +126,7 @@ public class FormularioPrincipal extends javax.swing.JFrame {
         });
         botaoCadastro.add(menuJogador);
 
+        menuTorneio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         menuTorneio.setText("Torneio");
         menuTorneio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -187,8 +196,21 @@ public class FormularioPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void botaoTorneioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoTorneioActionPerformed
-        // TODO add your handling code here:
+        FormularioCadastroNoTorneio formulario = new FormularioCadastroNoTorneio(this, true);
+        formulario.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        formulario.setTitle("Manutenção de Torneios");
+        formulario.setLocationRelativeTo(null);
+        formulario.setResizable(false);
+        formulario.setVisible(true);
     }//GEN-LAST:event_botaoTorneioActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        this.setExtendedState(this.getExtendedState()|JFrame.MAXIMIZED_BOTH);
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
