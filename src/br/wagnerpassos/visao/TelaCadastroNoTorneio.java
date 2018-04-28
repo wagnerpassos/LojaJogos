@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
  *
  * @author wagne
  */
-public class FormularioCadastroNoTorneio extends javax.swing.JDialog {
+public class TelaCadastroNoTorneio extends javax.swing.JDialog {
     TorneioDAO torneioDAO = new TorneioDAO();
     JogadorDAO jogadorDAO = new JogadorDAO();
     List<Jogador> memVirtualJogadores = new ArrayList<>();
@@ -166,10 +166,10 @@ public class FormularioCadastroNoTorneio extends javax.swing.JDialog {
     /**
      * Creates new form FormularioJogador
      */
-    public FormularioCadastroNoTorneio(java.awt.Frame parent, boolean modal) {
+    public TelaCadastroNoTorneio(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        FormularioCadastroNoTorneio.this.atualizaTabelaTorneio();
+        TelaCadastroNoTorneio.this.atualizaTabelaTorneio();
     }
 
     /**
@@ -586,14 +586,18 @@ public class FormularioCadastroNoTorneio extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormularioCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormularioCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormularioCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormularioCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCadastroNoTorneio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -602,7 +606,7 @@ public class FormularioCadastroNoTorneio extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                FormularioCadastroNoTorneio dialog = new FormularioCadastroNoTorneio(new javax.swing.JFrame(), true);
+                TelaCadastroNoTorneio dialog = new TelaCadastroNoTorneio(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
